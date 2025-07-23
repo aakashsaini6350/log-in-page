@@ -15,7 +15,8 @@ mongoose.connect('mongodb://localhost:27017/loginform', {
 // Create schema and model
 const UserSchema = new mongoose.Schema({
   name: String,
-  phone: String
+  phone: String,
+  dob:Date,
 });
 
 const User = mongoose.model('User', UserSchema);
@@ -32,10 +33,10 @@ app.get('/', (req, res) => {
 
 // Handle form submission
 app.post('/submit', async (req, res) => {
-  const { name, phone } = req.body;
+  const { name, phone,dob } = req.body;
   console.log('🟢 Received data:', req.body);
   try {
-    const user = new User({ name, phone });
+    const user = new User({ name, phone,dob});
     await user.save();
     res.json({ message: '✅ Data saved to database!' });
   } catch (err) {

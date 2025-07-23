@@ -12,6 +12,7 @@
     <form id="loginForm">
       <input type="text" name="name" placeholder="Enter Name" required />
       <input type="text" name="phone" placeholder="Enter Phone Number" required />
+         <input type="date" name="dob" placeholder="Enter your age" required />
       <button type="submit">Send</button>
     </form>
   </div>
@@ -22,7 +23,8 @@
       const formData = new FormData(e.target);
       const data = {
         name: formData.get('name'),
-        phone: formData.get('phone')
+        phone: formData.get('phone'),
+        dob: formData.get('date')
       };
 
       const res = await fetch('/submit', {
