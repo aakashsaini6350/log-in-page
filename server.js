@@ -2,12 +2,19 @@ const express = require('express');
 const { google } = require('googleapis');
 const bodyParser = require('body-parser');
 const path = require('path');
-const app = express();
-const port = 3000;
+const cors = require('cors'); // ✅ CORS import
 
-// middlewares
+const app = express();
+const port = process.env.PORT || 3000;
+
+// ✅ CORS setup — allow frontend origin (Netlify)
+app.use(cors({
+  origin: 'https://classy-cassata-c8bbdc.netlify.app', // ← tumhara Netlify URL
+}));
+
+// Middlewares
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json()); // ✅ JSON ke liye required
+app.use(bodyParser.json());
 app.use(express.static('public'));
 
 // Google Sheets Setup
@@ -34,13 +41,13 @@ app.post('/submit', async (req, res) => {
       },
     });
 
-    res.status(200).json({ message: '✅ Data sent to Google Sheet!' }); // ✅ FIX
+    res.status(200).json({ message: '✅ Data sent to Google Sheet!' });
   } catch (err) {
     console.error('❌ Error:', err);
-    res.status(500).json({ message: 'Something went wrong' }); // ✅ JSON error
+    res.status(500).json({ message: 'Something went wrong' });
   }
 });
 
 app.listen(port, () => {
-  console.log(`Server started at http://localhost:${port}`);
+  console.log(`✅ Server started at http://localhost:${port}`);
 });
