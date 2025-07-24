@@ -2,22 +2,22 @@ const express = require('express');
 const { google } = require('googleapis');
 const bodyParser = require('body-parser');
 const path = require('path');
-const cors = require('cors'); // ✅ CORS import
+const cors = require('cors');
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-// ✅ CORS setup — allow frontend origin (Netlify)
+// ✅ CORS allow all origins (for now)
 app.use(cors({
-  origin: 'https://classy-cassata-c8bbdc.netlify.app', // ← tumhara Netlify URL
+  origin: ['https://classy-cassata-c8bbdc.netlify.app', 'https://cosmic-pavlova-a8e194.netlify.app']
 }));
 
-// Middlewares
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static('public'));
 
-// Google Sheets Setup
+// Google Sheets setup
 const auth = new google.auth.GoogleAuth({
   keyFile: 'credentials.json',
   scopes: ['https://www.googleapis.com/auth/spreadsheets'],
@@ -51,3 +51,4 @@ app.post('/submit', async (req, res) => {
 app.listen(port, () => {
   console.log(`✅ Server started at http://localhost:${port}`);
 });
+
