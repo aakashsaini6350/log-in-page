@@ -17,25 +17,26 @@
     </form>
   </div>
 
-  <script>
-    document.getElementById('loginForm').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const formData = new FormData(e.target);
-      const data = {
-        name: formData.get('name'),
-        phone: formData.get('phone'),
-        dob: formData.get('date')
-      };
+ <script>
+  document.getElementById('loginForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = {
+      name: formData.get('name'),
+      phone: formData.get('phone'),
+      dob: formData.get('dob')  // ✅ FIXED!
+    };
 
-      const res = await fetch('/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      });
-
-      const result = await res.json();
-      alert(result.message);
+    const res = await fetch('/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
     });
-  </script>
+
+    const result = await res.json();
+    alert(result.message);
+  });
+</script>
+
 </body>
 </html>
